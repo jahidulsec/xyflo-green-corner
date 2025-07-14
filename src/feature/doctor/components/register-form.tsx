@@ -67,7 +67,7 @@ export default function RegisterForm() {
   }, [data]);
 
   return (
-    <Form action={action} className="max-w-sm mx-auto md:w-full ">
+    <Form action={action} className="max-w-sm mx-auto md:w-full mb-14">
       <FormItem>
         <Label htmlFor="full_name">Full Name</Label>
         <Input
