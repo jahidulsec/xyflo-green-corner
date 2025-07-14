@@ -36,7 +36,10 @@ function Search({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative shrink max-w-[8rem] sm:max-w-xl md:min-w-[8rem]">
+    <form
+      onSubmit={handleSubmit}
+      className="relative shrink max-w-[8rem] sm:max-w-xl md:min-w-[8rem]"
+    >
       <Input
         type={type}
         name="search"
