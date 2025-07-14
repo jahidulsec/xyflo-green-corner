@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-inter antialiased bg-primary-foreground/50`}>
+      <body className={`font-inter antialiased`}>
         <ProgressProviders>
           {children}
           <Toaster closeButton richColors position="top-right" />
