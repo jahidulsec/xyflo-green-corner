@@ -8,7 +8,7 @@ export async function GET() {
       select: {
         full_name: true,
         mobile: true,
-        mio_id: true,
+        sap_territory_code: true,
         created_at: true,
       },
     });
