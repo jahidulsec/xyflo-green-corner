@@ -10,6 +10,48 @@ import { ErrorMessage } from "@/components/text/error-message";
 import { toast } from "sonner";
 import { useRouter } from "@bprogress/next/app";
 import { ImageInput } from "@/components/input/image-input";
+import { Select } from "@/components/selects/select";
+
+const locations = [
+  "Jamalpur",
+  "Moulavi Bazar",
+  "Tangail",
+  "Cumilla",
+  "Bhola",
+  "Jessore",
+  "Barishal",
+  "Gaibandha",
+  "Rangpur",
+  "Rajbari",
+  "Kurigram",
+  "Chadpur",
+  "Habiganj",
+  "Baria",
+  "Noakhali",
+  "Chottogram",
+  "Nogaon",
+  "Dhaka",
+  "Faridpur",
+  "Cox’s Bazar",
+  "Nator",
+  "Bogura",
+  "Gopalganj",
+  "Mymensingh",
+  "Narsindhi",
+];
+
+const treeTypes = [
+  "Mango",
+  "Java Palm (Jam)",
+  "Kathal/Jackfruit",
+  "Lychee",
+  "Kul Boroi (Jujube)",
+  "Guava",
+  "Aamra",
+  "Amloki",
+  "Daalim",
+  "Lemon/Lebu",
+];
 
 export default function RegisterForm() {
   const [data, action, isPending] = useActionState(addDoctor, null);
@@ -84,6 +126,36 @@ export default function RegisterForm() {
           defaultValue={data?.values?.mio_id.toString() ?? undefined}
         />
         {data?.error?.mio_id && <ErrorMessage message={data.error.mio_id[0]} />}
+      </FormItem>
+
+      <FormItem>
+        <Label htmlFor="location">Select Your Location</Label>
+        <Select
+          className="w-full text-chart-3"
+          data={locations.sort().map((item) => {
+            return {
+              label: item,
+              value: item,
+            };
+          })}
+          placeholder="Location"
+        />
+        {data?.error?.location && <ErrorMessage message={data.error.location[0]} />}
+      </FormItem>
+
+      <FormItem>
+        <Label htmlFor="tree_type">Select Tree Type</Label>
+        <Select
+          className="w-full text-chart-3"
+          data={treeTypes.sort().map((item) => {
+            return {
+              label: item,
+              value: item,
+            };
+          })}
+          placeholder="Tree Type"
+        />
+        {data?.error?.tree_type && <ErrorMessage message={data.error.tree_type[0]} />}
       </FormItem>
 
       <Button disabled={isPending}>Register</Button>

@@ -42,7 +42,7 @@ const ImageInput = ({
     <div className="relative">
       <Label
         htmlFor={id}
-        className="text-sm text-chart-3 cursor-pointer border p-2 w-fit rounded-md"
+        className="text-sm text-chart-3 cursor-pointer bg-primary/10 backdrop-blur-sm p-2 w-fit rounded-md"
       >
         Upload
       </Label>

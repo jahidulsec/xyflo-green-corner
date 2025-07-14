@@ -1,4 +1,5 @@
 import AppNav from "@/components/navbar/app-nav";
+import HeaderSection from "@/feature/doctor/components/header-section";
 import RegisterForm from "@/feature/doctor/components/register-form";
 import Image from "next/image";
 import React from "react";
@@ -9,18 +10,7 @@ export default function HomePage() {
       <AppNav />
 
       <main className="container p-6 mx-auto flex flex-col gap-10">
-        <div className="flex justify-center items-center flex-col gap-10 mt-10">
-          <div className="relative mix-blend-multiply w-[5rem] aspect-square">
-            <Image
-              fill
-              src={"/logos/Green Savers.jpg"}
-              alt=""
-              objectFit="cover"
-            />
-          </div>
-
-          <h1 className="text-2xl font-title text-chart-3 font-semibold">Welcome</h1>
-        </div>
+        <HeaderSection />
 
         <RegisterForm />
       </main>
@@ -41,7 +31,6 @@ export default function HomePage() {
         height={500}
         className="absolute top-0 w-full h-full object-cover object-left -z-[2] opacity-15"
       />
-      <div className=""></div>
     </div>
   );
 }

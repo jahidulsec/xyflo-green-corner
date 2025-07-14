@@ -9,7 +9,10 @@ const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
 
 const addSchema = z.object({
   full_name: z.string().min(2, { message: "At least 2 characters" }),
+  email: z.string().email({ message: "Invalid email address" }),
   mobile: z.string().regex(phoneRegex, { message: "Invalid" }),
+  location: z.string().min(2, { message: "Select your location" }),
+  tree_type: z.string().min(2, { message: "Select a tree type" }),
   image: z
     .instanceof(File, { message: "Required" })
     .refine((file) => file.size > 0, "Required")
@@ -18,10 +21,8 @@ const addSchema = z.object({
       (file) => file.size <= MAX_IMAGE_SIZE,
       "Image size must be 1MB or less"
     ),
-  mio_id: z.string().min(4, {message: "Enter valid territory code"}),
+  mio_id: z.string().min(4, { message: "Enter valid territory code" }),
 });
-
-
 
 export const addDoctor = async (prevState: unknown, formData: FormData) => {
   const modifiedFormData = Object.fromEntries(formData.entries());
@@ -85,7 +86,6 @@ export const addDoctor = async (prevState: unknown, formData: FormData) => {
     //   },
     // });
 
-
     return {
       error: null,
       success: "Account is successfully created",
@@ -116,4 +116,3 @@ export const addDoctor = async (prevState: unknown, formData: FormData) => {
     };
   }
 };
-
