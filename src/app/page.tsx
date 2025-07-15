@@ -23,7 +23,7 @@ export default function HomePage() {
         alt=""
         width={240}
         height={500}
-        className="absolute right-0 bottom-0 h-full w-[3rem] object-cover object-left -z-[1]"
+        className="absolute right-0 bottom-0 h-full w-[2rem] object-cover object-left -z-[1]"
       />
 
       <Image
