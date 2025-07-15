@@ -9,7 +9,6 @@ import { addDoctor } from "../actions/doctor";
 import { ErrorMessage } from "@/components/text/error-message";
 import { toast } from "sonner";
 import { useRouter } from "@bprogress/next/app";
-import { ImageInput } from "@/components/input/image-input";
 import { Select } from "@/components/selects/select";
 
 const locations = [
@@ -102,34 +101,41 @@ export default function RegisterForm() {
         {data?.error && <ErrorMessage message={data.error.mobile?.[0] ?? ""} />}
       </FormItem>
 
-      <FormItem className="col-span-1 md:col-span-3">
-        <Label>Image</Label>
-        <ImageInput
-          id="1"
-          imageClassName="w-30 h-30 rounded-md border"
-          width={100}
-          height={100}
-          type="file"
-          name="image"
-          className="rounded-md"
-          defaultFile={data?.values?.image ?? undefined}
-        />
-        {data?.error?.image && <ErrorMessage message={data.error.image[0]} />}
-      </FormItem>
-
       <FormItem>
-        <Label htmlFor="mio_id">SAP Territory Code</Label>
+        <Label htmlFor="zone">Zone</Label>
         <Input
-          name="mio_id"
-          id="mio_id"
-          placeholder="SAP territory code"
-          defaultValue={data?.values?.mio_id.toString() ?? undefined}
+          name="zone"
+          id="zone"
+          placeholder="Zone"
+          defaultValue={data?.values?.zone.toString() ?? undefined}
         />
-        {data?.error?.mio_id && <ErrorMessage message={data.error.mio_id[0]} />}
+        {data?.error?.zone && <ErrorMessage message={data.error.zone[0]} />}
       </FormItem>
 
       <FormItem>
-        <Label htmlFor="location">Select Your Location</Label>
+        <Label htmlFor="region">Region</Label>
+        <Input
+          name="region"
+          id="region"
+          placeholder="Region"
+          defaultValue={data?.values?.region.toString() ?? undefined}
+        />
+        {data?.error?.region && <ErrorMessage message={data.error.region[0]} />}
+      </FormItem>
+
+      <FormItem>
+        <Label htmlFor="territory">Territory</Label>
+        <Input
+          name="territory"
+          id="territory"
+          placeholder="Territory"
+          defaultValue={data?.values?.territory.toString() ?? undefined}
+        />
+        {data?.error?.territory && <ErrorMessage message={data.error.territory[0]} />}
+      </FormItem>
+
+      <FormItem>
+        <Label htmlFor="location">Select your location for tree plantation</Label>
         <Select
           className="w-full text-chart-3"
           data={locations.sort().map((item) => {
@@ -140,11 +146,13 @@ export default function RegisterForm() {
           })}
           placeholder="Location"
         />
-        {data?.error?.location && <ErrorMessage message={data.error.location[0]} />}
+        {data?.error?.location && (
+          <ErrorMessage message={data.error.location[0]} />
+        )}
       </FormItem>
 
       <FormItem>
-        <Label htmlFor="tree_type">Select Tree Type</Label>
+        <Label htmlFor="tree_type">Select the tree</Label>
         <Select
           className="w-full text-chart-3"
           data={treeTypes.sort().map((item) => {
@@ -155,7 +163,9 @@ export default function RegisterForm() {
           })}
           placeholder="Tree Type"
         />
-        {data?.error?.tree_type && <ErrorMessage message={data.error.tree_type[0]} />}
+        {data?.error?.tree_type && (
+          <ErrorMessage message={data.error.tree_type[0]} />
+        )}
       </FormItem>
 
       <Button disabled={isPending}>Register</Button>
