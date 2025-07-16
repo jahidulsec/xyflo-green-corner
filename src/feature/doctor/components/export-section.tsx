@@ -16,7 +16,7 @@ function ExportSection() {
       typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
     let str = ``;
     str += `\r\n`;
-    str += "Full name, mobile, mio_id, created_date \r\n";
+    str += "Full name, mobile, email, address, speciality, hospital, zone, region, territory, plantation_tree, plant_location, created_date \r\n";
 
     for (let i = 0; i < array.length; i++) {
       let line = ``;

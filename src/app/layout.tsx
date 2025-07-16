@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Green Initialtive - Breathe with Xyflo",
 };
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -3,6 +3,7 @@ import { SearchForm } from "@/components/input/search";
 import { TableSkeleton } from "@/components/skeleton/table";
 import { PageHeading } from "@/components/typography/heading";
 import DoctorTable from "@/feature/doctor/components/doctor-table";
+import ExportSection from "@/feature/doctor/components/export-section";
 import { getDoctors } from "@/feature/doctor/servers/doctor";
 import { SearchParams } from "@/types/search-params";
 import { Users2 } from "lucide-react";
@@ -17,7 +18,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
           <Suspense>
             <SearchForm placeholder="Search (name, mobile)" />
           </Suspense>
-          {/* <ExportSection /> */}
+          <ExportSection />
         </div>
         <Suspense fallback={<TableSkeleton />}>
           <TableSection searchParams={searchParams} />
