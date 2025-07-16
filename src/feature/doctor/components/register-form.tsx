@@ -69,7 +69,7 @@ export default function RegisterForm() {
       router.push("/register/success");
     } else if (data?.error) {
       setPage(1);
-      toast.warning('Please check your respose')
+      toast.warning("Please check your respose");
     }
   }, [data]);
 
@@ -132,7 +132,46 @@ export default function RegisterForm() {
                 defaultValue={data?.values?.mobile?.toString() ?? undefined}
               />
               {data?.error && (
-                <ErrorMessage message={data.error.mobile?.[0] ?? ""} />
+                <ErrorMessage message={data.error.email?.[0] ?? ""} />
+              )}
+            </FormItem>
+
+            <FormItem>
+              <Label htmlFor="location">Address</Label>
+              <Input
+                name="location"
+                id="location"
+                placeholder="eg. m@email.com"
+                defaultValue={data?.values?.location?.toString() ?? undefined}
+              />
+              {data?.error && (
+                <ErrorMessage message={data.error.location?.[0] ?? ""} />
+              )}
+            </FormItem>
+
+            <FormItem>
+              <Label htmlFor="speciality">Speciality</Label>
+              <Input
+                name="speciality"
+                id="speciality"
+                placeholder="eg. Eye Specialist (optional)"
+                defaultValue={data?.values?.speciality?.toString() ?? undefined}
+              />
+              {data?.error && (
+                <ErrorMessage message={data.error.speciality?.[0] ?? ""} />
+              )}
+            </FormItem>
+
+            <FormItem>
+              <Label htmlFor="hospital">Hospital / Clinic Name</Label>
+              <Input
+                name="hospital"
+                id="hospital"
+                placeholder="eg. Labaid (optional)"
+                defaultValue={data?.values?.hospital?.toString() ?? undefined}
+              />
+              {data?.error && (
+                <ErrorMessage message={data.error.hospital?.[0] ?? ""} />
               )}
             </FormItem>
           </>
@@ -221,7 +260,10 @@ export default function RegisterForm() {
               className="text-primary/50 fill-primary/30"
               size={100}
             />
-            <p>Submit your response.</p>
+            <p className="text-center">
+              To complete your registration, please click the{" "}
+              <strong>Submit</strong> button.
+            </p>
           </div>
         )}
 
@@ -230,7 +272,7 @@ export default function RegisterForm() {
             Next
           </Button>
         )}
-        {page === 4 && <Button disabled={isPending}>Register</Button>}
+        {page === 4 && <Button disabled={isPending}>Submit</Button>}
       </Form>
     </div>
   );

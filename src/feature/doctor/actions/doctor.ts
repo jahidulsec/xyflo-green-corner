@@ -1,16 +1,24 @@
 "use server";
 import { phoneRegex } from "@/lib/regex";
 import { z } from "zod";
+import db from "../../../../db/db";
+import { Prisma } from "@prisma/client";
 
 const addSchema = z.object({
   full_name: z.string().min(2, { message: "At least 2 characters" }),
-  email: z.string().email({ message: "Invalid email address" }),
   mobile: z.string().regex(phoneRegex, { message: "Invalid" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  location: z.string().min(2, { message: "At least 2 characters" }),
   zone: z.string().min(2, { message: "At least 2 characters" }),
   region: z.string().min(2, { message: "At least 2 characters" }),
   territory: z.string().min(2, { message: "At least 2 characters" }),
-  location: z.string().min(2, { message: "Select your location" }),
+  hospital: z.string().min(2, { message: "At least 2 characters" }).optional(),
+  speciality: z
+    .string()
+    .min(2, { message: "At least 2 characters" })
+    .optional(),
   tree_type: z.string().min(2, { message: "Select a tree type" }),
+  plant_location: z.string().min(2, { message: "Select a tree type" }),
 });
 
 export const addDoctor = async (prevState: unknown, formData: FormData) => {
@@ -45,25 +53,22 @@ export const addDoctor = async (prevState: unknown, formData: FormData) => {
       };
     }
 
-    // const data = result.data;
+    const data = result.data;
 
     // check doctor
-    // const doctor = await db.doctor.findUnique({
-    //   where: {
-    //     mobile: data.mobile,
-    //   },
-    // });
+    const doctor = await db.doctor.findUnique({
+      where: {
+        mobile: data.mobile,
+      },
+    });
 
-    // if (doctor) {
-    //   throw { message: "Doctor with this mobile already exists" };
-    // }
+    if (doctor) {
+      throw { message: "Doctor with this mobile already exists" };
+    }
 
-    // const user = await db.doctor.create({
-    //   data: {
-    //     ...data,
-    //     image: uploadedImage,
-    //   },
-    // });
+    await db.doctor.create({
+      data: data,
+    });
 
     return {
       error: null,
@@ -73,16 +78,16 @@ export const addDoctor = async (prevState: unknown, formData: FormData) => {
   } catch (error) {
     console.error(error);
 
-    // if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    //   if (error.code === "P2003") {
-    //     return {
-    //       error: null,
-    //       success: null,
-    //       toast: `${error?.meta?.constraint} does not exists`,
-    //       values: modifiedFormData,
-    //     };
-    //   }
-    // }
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2003") {
+        return {
+          error: null,
+          success: null,
+          toast: `${error?.meta?.constraint} does not exists`,
+          values: modifiedFormData,
+        };
+      }
+    }
 
     return {
       error: null,

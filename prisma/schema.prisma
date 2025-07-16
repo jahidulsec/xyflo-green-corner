@@ -8,24 +8,17 @@ datasource db {
 }
 
 model doctor {
-  id                 String   @id @db.VarChar(36)
-  full_name          String   @db.VarChar(150)
-  mobile             String   @db.VarChar(11)
-  email              String   @db.VarChar(150)
-  image              String   @db.VarChar(150)
-  sap_territory_code String   @db.VarChar(6)
-  location           String   @db.VarChar(100)
-  tree_type          String   @db.VarChar(100)
-  created_at         DateTime @default(now()) @db.Timestamp(0)
-  mio                mio      @relation(fields: [sap_territory_code], references: [sap_territory_code], onUpdate: Restrict, map: "mio_doctor_fk")
-
-  @@index([sap_territory_code], map: "mio_doctor_fk")
-}
-
-model mio {
-  zone               String   @db.VarChar(100)
-  region             String   @db.VarChar(100)
-  sap_territory_code String   @id @db.VarChar(10)
-  territory          String   @db.VarChar(100)
-  doctor             doctor[]
+  id             String   @id @default(uuid()) @db.VarChar(36)
+  full_name      String   @db.VarChar(150)
+  mobile         String   @unique(map: "mobile") @db.VarChar(11)
+  email          String   @db.VarChar(150)
+  location       String   @db.VarChar(100)
+  tree_type      String   @db.VarChar(100)
+  created_at     DateTime @default(now()) @db.Timestamp(0)
+  zone           String   @db.VarChar(100)
+  region         String   @db.VarChar(100)
+  territory      String   @db.VarChar(100)
+  speciality     String?  @db.VarChar(100)
+  hospital       String?  @db.VarChar(255)
+  plant_location String   @db.VarChar(100)
 }
