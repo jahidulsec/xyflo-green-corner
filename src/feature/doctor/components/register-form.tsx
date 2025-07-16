@@ -13,47 +13,7 @@ import { Select } from "@/components/selects/select";
 import StepSection from "./step-section";
 import { BadgeCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const locations = [
-  "Jamalpur",
-  "Moulavi Bazar",
-  "Tangail",
-  "Cumilla",
-  "Bhola",
-  "Jessore",
-  "Barishal",
-  "Gaibandha",
-  "Rangpur",
-  "Rajbari",
-  "Kurigram",
-  "Chadpur",
-  "Habiganj",
-  "Baria",
-  "Noakhali",
-  "Chottogram",
-  "Nogaon",
-  "Dhaka",
-  "Faridpur",
-  "Cox’s Bazar",
-  "Nator",
-  "Bogura",
-  "Gopalganj",
-  "Mymensingh",
-  "Narsindhi",
-];
-
-const treeTypes = [
-  "Mango",
-  "Java Palm (Jam)",
-  "Kathal/Jackfruit",
-  "Lychee",
-  "Kul Boroi (Jujube)",
-  "Guava",
-  "Aamra",
-  "Amloki",
-  "Daalim",
-  "Lemon/Lebu",
-];
+import { locations, treeTypes } from "@/lib/data";
 
 export default function RegisterForm() {
   const [data, action, isPending] = useActionState(addDoctor, null);
@@ -82,7 +42,7 @@ export default function RegisterForm() {
   ];
 
   return (
-    <div className="max-w-sm mx-auto md:w-full flex flex-col gap-5 min-h-[50rem]">
+    <div className="max-w-sm mx-auto md:w-full flex flex-col gap-5">
       <StepSection
         page={page}
         onPage={(page) => setPage(page)}
@@ -269,11 +229,19 @@ export default function RegisterForm() {
         </FormSection>
 
         {page !== 4 && (
-          <Button type="button" className="mt-4" onClick={() => setPage(page + 1)}>
+          <Button
+            type="button"
+            className="mt-4"
+            onClick={() => setPage(page + 1)}
+          >
             Next
           </Button>
         )}
-        {page === 4 && <Button className="mt-4" disabled={isPending}>Submit</Button>}
+        {page === 4 && (
+          <Button className="mt-4" disabled={isPending}>
+            Submit
+          </Button>
+        )}
       </Form>
     </div>
   );
@@ -289,7 +257,9 @@ const FormSection = ({
     <div
       className={cn(
         `flex flex-col gap-4 transition-[height, transform] duration-700`,
-        page === currentPage ? "visible max-h-[40rem] opacity-100 translate-y-0" : "invisible max-h-0 opacity-0 -translate-y-10",
+        page === currentPage
+          ? "visible max-h-[40rem] opacity-100 translate-y-0"
+          : "invisible max-h-0 opacity-0 -translate-y-10",
         className
       )}
       {...props}
