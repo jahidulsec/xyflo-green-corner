@@ -6,10 +6,10 @@ import React, { Suspense } from "react";
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-svh isolate bg-primary-foreground/95">
+    <div className="relative min-h-svh h-full isolate bg-primary-foreground/95">
       <AppNav />
 
-      <main className="container p-6 mx-auto flex flex-col gap-10">
+      <main className="container h-full p-6 mx-auto flex flex-col gap-10">
         <HeaderSection />
 
         <Suspense>
