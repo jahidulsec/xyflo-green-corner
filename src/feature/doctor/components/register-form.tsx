@@ -261,7 +261,7 @@ export default function RegisterForm() {
               className="text-primary/50 fill-primary/30"
               size={100}
             />
-            <p className="text-center">
+            <p className="text-center text-sm my-5">
               To complete your registration, please click the{" "}
               <strong>Submit</strong> button.
             </p>
