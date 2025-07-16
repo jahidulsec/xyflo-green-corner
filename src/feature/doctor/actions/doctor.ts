@@ -155,8 +155,7 @@ export const updateDoctor = async (
       data: data,
     });
 
-
-    revalidatePath('/dasboard')
+    revalidatePath("/dasboard");
 
     return {
       error: null,
@@ -182,6 +181,19 @@ export const updateDoctor = async (
       success: null,
       toast: (error as any).message,
       values: modifiedFormData,
+    };
+  }
+};
+
+export const deleteDoctor = async (id: string) => {
+  try {
+    await db.doctor.delete({ where: { id: id } });
+
+    return { data: "Doctor is deleted successfully", error: null };
+  } catch (error) {
+    return {
+      data: null,
+      error: (error as Error).message,
     };
   }
 };

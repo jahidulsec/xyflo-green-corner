@@ -5,7 +5,7 @@ import { DataTable } from "@/components/table/data-table";
 import { TableWrapper } from "@/components/table/table";
 import { formatDate } from "@/lib/formatters";
 import { ColumnDef } from "@tanstack/react-table";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { doctor } from "@prisma/client";
 import {
   DropdownMenu,
@@ -23,6 +23,10 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import DoctorForm from "./doctor-form";
+import { AlertModal } from "@/components/modal/alert";
+import { toast } from "sonner";
+import { deleteDoctor } from "../actions/doctor";
+import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 
 export default function DoctorTable({
   response,
@@ -36,6 +40,8 @@ export default function DoctorTable({
   };
 }) {
   const [edit, setEdit] = useState<any>(undefined);
+  const [del, setDel] = useState<undefined | string | boolean>(undefined);
+  const [isPending, startTransition] = useTransition();
 
   const columns: ColumnDef<doctor>[] = [
     {
@@ -87,11 +93,12 @@ export default function DoctorTable({
       accessorKey: "territory",
       header: "Territory",
     },
-     {
-      accessorKey:'tree_type',
+    {
+      accessorKey: "tree_type",
       header: "Selected Tree",
-    }, {
-      accessorKey: 'plant_location',
+    },
+    {
+      accessorKey: "plant_location",
       header: "Plantation Location",
     },
     {
@@ -121,6 +128,13 @@ export default function DoctorTable({
               <DropdownMenuItem onClick={() => setEdit(row.original)}>
                 Edit
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                variant="destructive"
+                onClick={() => setDel(row.original.id)}
+              >
+                Delete
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -148,6 +162,30 @@ export default function DoctorTable({
           </ScrollArea>
         </DialogContent>
       </Dialog>
+
+      {/* delete modal */}
+      <AlertModal
+        pending={isPending}
+        open={!!del}
+        onOpenChange={setDel}
+        onAction={() => {
+          startTransition(async () => {
+            if (del && typeof del !== "boolean") {
+              const response = deleteDoctor(del);
+              toast.promise(response, {
+                loading: "Loading...",
+                success: (data) => {
+                  if (data.error) throw data.error;
+                  return data.data;
+                },
+                error: (data) => {
+                  return data.error;
+                },
+              });
+            }
+          });
+        }}
+      />
     </>
   );
 }
