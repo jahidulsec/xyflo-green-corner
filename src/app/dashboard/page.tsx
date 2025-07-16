@@ -15,7 +15,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
         <div className="flex justify-between items-center gap-3 flex-wrap">
           <PageHeading icon={<Users2 />}>Doctor</PageHeading>
           <Suspense>
-            <SearchForm />
+            <SearchForm placeholder="Search (name, mobile)" />
           </Suspense>
           {/* <ExportSection /> */}
         </div>

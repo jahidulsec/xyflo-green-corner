@@ -5,13 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useActionState, useEffect } from "react";
-import { addDoctor } from "../actions/doctor";
+import { addDoctor, updateDoctor } from "../actions/doctor";
 import { ErrorMessage } from "@/components/text/error-message";
 import { toast } from "sonner";
 import { Select } from "@/components/selects/select";
 import { doctor } from "@prisma/client";
 import { locations, treeTypes } from "@/lib/data";
-
 
 export default function DoctorForm({
   doctor,
@@ -20,7 +19,10 @@ export default function DoctorForm({
   doctor: doctor;
   onClose: () => void;
 }) {
-  const [data, action, isPending] = useActionState(addDoctor, null);
+  const [data, action, isPending] = useActionState(
+    doctor ? updateDoctor.bind(null, doctor.mobile) : addDoctor,
+    null
+  );
 
   useEffect(() => {
     if (data?.toast) {
