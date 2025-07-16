@@ -1,10 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Sprout,
-  Users2,
-} from "lucide-react";
+import { Sprout, Users2 } from "lucide-react";
 
 import { NavMain } from "@/components/dashboard/nav-main";
 import { NavUser } from "@/components/dashboard/nav-user";

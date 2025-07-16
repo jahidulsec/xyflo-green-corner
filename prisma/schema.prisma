@@ -22,3 +22,11 @@ model doctor {
   hospital       String?  @db.VarChar(255)
   plant_location String   @db.VarChar(100)
 }
+
+model admin {
+  id         String   @id @default(uuid()) @db.VarChar(36)
+  full_name  String   @db.VarChar(255)
+  username   String   @unique(map: "username") @db.VarChar(100)
+  password   String   @db.VarChar(100)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+}
