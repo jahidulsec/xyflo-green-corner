@@ -1,10 +1,9 @@
 import AppNav from "@/components/navbar/app-nav";
 import HeaderSection from "@/feature/doctor/components/header-section";
-import RegisterForm from "@/feature/doctor/components/register-form";
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React from "react";
 
-export default function HomePage() {
+export default function DoctorLayout({ children }: React.PropsWithChildren) {
   return (
     <div className="relative min-h-svh h-full isolate bg-primary-foreground/95">
       <AppNav />
@@ -12,9 +11,7 @@ export default function HomePage() {
       <main className="container h-full p-6 mx-auto flex flex-col gap-10">
         <HeaderSection />
 
-        <Suspense>
-          <RegisterForm />
-        </Suspense>
+        {children}
       </main>
 
       {/* shapes */}
