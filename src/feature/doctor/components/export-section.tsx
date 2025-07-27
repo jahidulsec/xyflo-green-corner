@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { format } from "date-fns";
 import { Download } from "lucide-react";
 import React, { useTransition } from "react";
 import { toast } from "sonner";
@@ -11,27 +10,21 @@ function ExportSection() {
   const [isPending, startTransition] = useTransition();
 
   // export csv
-  const convertToCSV = (objArray: object[]) => {
-    const array =
-      typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
-    let str = ``;
-    str += `\r\n`;
-    str += "Full name, mobile, email, address, speciality, hospital, zone, region, territory, plantation_tree, plant_location, created_date \r\n";
-
-    for (let i = 0; i < array.length; i++) {
-      let line = ``;
-      for (const index in array[i]) {
-        if (line !== "") line += ",";
-        if (index === "created_at") {
-          line += format(new Date(array[i][index]), "yyyy-MM-dd");
-        } else {
-          line += array[i][index];
-        }
-      }
-      str += line + "\r\n";
-    }
-
-    return str;
+  const convertToCSV = (array: object[]) => {
+    const headers = Object.keys(array[0]).join(",");
+    const rows = array.map((row) =>
+      Object.values(row)
+        .map((value) => {
+          // Escape quotes and wrap in double quotes if value contains comma or quote
+          const str = String(value).replace(/"/g, '""').replace(/’/, "'");
+          if (/^0\d+$/.test(str)) {
+            return `="${str}"`; // Excel will treat it as a formula returning a string
+          }
+          return /[",\n]/.test(str) ? `"${str}"` : str; // if string container ",\n any of thes, return
+        })
+        .join(",")
+    );
+    return [headers, ...rows].join("\n");
   };
 
   const downloadCSV = async () => {
