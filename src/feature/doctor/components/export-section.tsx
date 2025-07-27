@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { format } from "date-fns";
 import { Download } from "lucide-react";
 import React, { useTransition } from "react";
 import { toast } from "sonner";
@@ -14,11 +15,14 @@ function ExportSection() {
     const headers = Object.keys(array[0]).join(",");
     const rows = array.map((row) =>
       Object.values(row)
-        .map((value) => {
+        .map((value, index) => {
           // Escape quotes and wrap in double quotes if value contains comma or quote
           const str = String(value).replace(/"/g, '""').replace(/’/, "'");
           if (/^0\d+$/.test(str)) {
             return `="${str}"`; // Excel will treat it as a formula returning a string
+          }
+          if (index === 11) {
+            return format(new Date(str), "yyyy-MM-dd");
           }
           return /[",\n]/.test(str) ? `"${str}"` : str; // if string container ",\n any of thes, return
         })
